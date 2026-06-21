@@ -1,44 +1,51 @@
-import { Reveal } from "@/components/Reveal";
+import type { ExperienceItem } from "@/data/portfolio";
 
 type TimelineItemProps = {
-  item: {
-    company: string;
-    role: string;
-    period: string;
-    points: string[];
-  };
-  index: number;
+  item: ExperienceItem;
+  isLast: boolean;
 };
 
-export function TimelineItem({ item, index }: TimelineItemProps) {
+export function TimelineItem({ item, isLast }: TimelineItemProps) {
   return (
-    <li className="relative pb-10 pl-8 last:pb-0 sm:pl-12">
-      {/* node */}
-      <span
-        className="absolute -left-[10px] top-2 size-[18px] border-2 border-ink bg-accent"
-        aria-hidden="true"
-      />
+    <li
+      className={`grid gap-4 px-5 py-6 sm:grid-cols-[180px_1fr] sm:gap-8 sm:px-7 ${
+        isLast ? "" : "border-b border-line"
+      }`}
+    >
+      {/* period */}
+      <div className="flex items-center gap-2">
+        {item.current ? (
+          <span className="status-dot pulse-dot size-2 bg-accent" aria-hidden="true" />
+        ) : (
+          <span className="size-2 rounded-full bg-line" aria-hidden="true" />
+        )}
+        <span className="mono-label text-faint">{item.periodLabel}</span>
+      </div>
 
-      <Reveal delay={index * 50}>
-        <div className="nb nb-hover p-5 sm:p-6">
-          <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-            <h3 className="text-2xl font-extrabold tracking-tightest">{item.company}</h3>
-            <span className="tag w-fit bg-paper">{item.period}</span>
-          </div>
-          <p className="mt-2 text-sm font-bold uppercase tracking-[0.04em] text-accent">
-            {item.role}
-          </p>
-
-          <ul className="mt-4 grid gap-2.5 text-sm leading-7 text-inksoft">
-            {item.points.map((point) => (
-              <li key={point} className="flex gap-3">
-                <span className="mt-3 h-[2px] w-3.5 shrink-0 bg-accent" aria-hidden="true" />
-                <span>{point}</span>
-              </li>
-            ))}
-          </ul>
+      {/* content */}
+      <div>
+        <div className="flex flex-wrap items-center gap-3">
+          <h3 className="text-xl font-extrabold tracking-tightest text-text">
+            {item.company}
+          </h3>
+          <span className="mono-label rounded-chip border border-line px-2 py-1 text-[10px] text-muted">
+            {item.type}
+          </span>
         </div>
-      </Reveal>
+        <p className="mono-label mt-2 font-bold text-accent">{item.role}</p>
+
+        <ul className="mt-4 grid gap-2.5 text-sm leading-[1.6] text-muted">
+          {item.points.map((point) => (
+            <li key={point} className="flex gap-3">
+              <span
+                className="mt-2.5 h-px w-3 shrink-0 bg-accent"
+                aria-hidden="true"
+              />
+              <span>{point}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
     </li>
   );
 }

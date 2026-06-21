@@ -10,45 +10,48 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
   const links = project.links ?? (project.href ? [{ label: "Repository", href: project.href }] : []);
 
   return (
-    <article className="nb nb-hover nb-hover-accent group flex h-full min-h-[450px] flex-col">
-      {/* header */}
-      <div className="flex items-center justify-between border-b-2 border-ink bg-ink px-4 py-3 text-paper">
+    <article
+      className={`flex h-full min-h-[460px] flex-col overflow-hidden rounded-card bg-surface ${
+        project.featured ? "border border-accent" : "border border-line"
+      }`}
+    >
+      {/* header bar */}
+      <div className="panel-header justify-between">
         <div className="flex min-w-0 items-center gap-3">
-          <span className="font-mono text-xs font-bold text-paper/50">
+          <span className="mono-label text-faint">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <p className="truncate font-mono text-sm font-bold">{project.service}</p>
+          <span className="truncate font-mono text-xs font-bold uppercase tracking-[0.06em] text-muted">
+            {project.service}
+          </span>
         </div>
-        {project.featured ? (
-          <span className="shrink-0 bg-accent px-2 py-0.5 font-mono text-[10px] font-bold uppercase tracking-[0.08em] text-paper">
-            featured
+        {project.featured && project.badge ? (
+          <span className="mono-label shrink-0 rounded-chip border border-accent px-2 py-1 text-[10px] font-bold text-accent">
+            {project.badge}
           </span>
         ) : (
-          <span className="pulse-dot size-2 rounded-full bg-accent" aria-hidden="true" />
+          <span className="status-dot shrink-0 bg-accent" aria-hidden="true" />
         )}
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="text-3xl font-extrabold tracking-tightest">{project.title}</h3>
-        <p className="mt-2 text-sm font-bold leading-6 text-accent">{project.subtitle}</p>
+        <h3 className="text-[1.6875rem] font-extrabold leading-tight tracking-tightest text-text">
+          {project.title}
+        </h3>
+        <p className="mt-2 text-sm font-semibold leading-6 text-accent">
+          {project.subtitle}
+        </p>
 
-        <p className="mt-4 text-sm leading-7 text-inksoft">{project.description}</p>
+        <p className="mt-4 text-sm leading-[1.65] text-muted">{project.description}</p>
 
         <div className="mt-6 grid gap-3">
           <ManifestList label="exposes" items={project.interfaces} />
           <ManifestList label="ships" items={project.ships} />
         </div>
 
-        <div className="mt-6 flex flex-wrap gap-x-3 gap-y-1.5 border-t-2 border-dashed border-ink/30 pt-5">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="font-mono text-[11px] font-bold uppercase tracking-[0.06em] text-inksoft"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
+        <p className="mono-label mt-6 leading-[1.6] text-faint">
+          {project.tags.join(" · ")}
+        </p>
 
         <div className="mt-auto flex flex-wrap gap-2 pt-6">
           {links.map((link) => (
@@ -57,14 +60,14 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="focus-ring inline-flex items-center gap-1.5 border-2 border-ink px-3 py-1.5 font-mono text-xs font-bold uppercase tracking-[0.04em] text-ink transition hover:bg-accent hover:text-paper hover:border-accent"
+              className="focus-ring inline-flex items-center gap-1.5 rounded-chip border border-linestrong px-3 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.04em] text-muted transition hover:border-accent hover:text-accent"
               aria-label={`Open ${project.title} ${link.label}`}
             >
               {link.label}
               {link.label.toLowerCase().includes("repo") ? (
-                <Github size={13} aria-hidden="true" />
+                <Github size={12} aria-hidden="true" />
               ) : (
-                <ArrowUpRight size={13} aria-hidden="true" />
+                <ArrowUpRight size={12} aria-hidden="true" />
               )}
             </a>
           ))}
@@ -76,13 +79,11 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
 
 function ManifestList({ label, items }: { label: string; items: string[] }) {
   return (
-    <div className="grid grid-cols-[72px_1fr] gap-3">
-      <p className="font-mono text-[11px] font-bold uppercase tracking-[0.08em] text-ink">
-        {label}
-      </p>
+    <div className="grid grid-cols-[64px_1fr] gap-3">
+      <p className="mono-label pt-1.5 font-bold text-text">{label}</p>
       <div className="flex flex-wrap gap-1.5">
         {items.map((item) => (
-          <span key={item} className="tag bg-paper">
+          <span key={item} className="chip">
             {item}
           </span>
         ))}

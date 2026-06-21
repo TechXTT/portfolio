@@ -9,19 +9,28 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        paper: "#ece4d2",
-        paper2: "#e3d9c2",
-        ink: "#17140c",
-        inksoft: "#4a4536",
-        accent: "#ff3b14",
-        accent2: "#1f37ff",
+        bg: "var(--bg)",
+        surface: "var(--surface)",
+        surface2: "var(--surface-2)",
+        line: "var(--line)",
+        linestrong: "var(--line-strong)",
+        text: "var(--text)",
+        muted: "var(--text-muted)",
+        faint: "var(--text-faint)",
+        accent: "var(--accent)",
+        status: "var(--status)",
       },
       fontFamily: {
         sans: ["var(--font-display)", "ui-sans-serif", "system-ui"],
         mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       letterSpacing: {
-        tightest: "-0.045em",
+        tightest: "-0.02em",
+      },
+      borderRadius: {
+        card: "6px",
+        chip: "3px",
+        btn: "4px",
       },
     },
   },

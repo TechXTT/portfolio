@@ -8,26 +8,34 @@ import { Marquee } from "@/components/Marquee";
 import { Navbar } from "@/components/Navbar";
 import { Projects } from "@/components/Projects";
 import { Skills } from "@/components/Skills";
+import { StatusStrip } from "@/components/StatusStrip";
 import { heroBadges } from "@/data/portfolio";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-paper text-ink">
-      <div className="grid-backdrop pointer-events-none fixed inset-0 z-0" aria-hidden="true" />
-
-      <Navbar />
+    <div className="relative min-h-screen bg-bg text-text">
+      <div
+        className="grid-backdrop pointer-events-none fixed inset-0 z-0"
+        aria-hidden="true"
+      />
 
       <div className="relative z-10">
-        <Hero />
-        <Marquee items={heroBadges} />
-        <About />
-        <Projects />
-        <Experience />
-        <Skills />
-        <Education />
-        <Contact />
+        <StatusStrip />
+        <Navbar />
+
+        <main>
+          <Hero />
+          <Marquee items={heroBadges} />
+          <About />
+          <Projects />
+          <Experience />
+          <Skills />
+          <Education />
+          <Contact />
+        </main>
+
         <Footer />
       </div>
-    </main>
+    </div>
   );
 }

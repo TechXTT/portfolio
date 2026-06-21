@@ -1,112 +1,86 @@
-import { ArrowDownRight, ArrowUpRight, Mail, MapPin } from "lucide-react";
-import Image from "next/image";
+import { ArrowDownRight } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
-import { Terminal } from "@/components/Terminal";
+import { SystemMap } from "@/components/SystemMap";
 import { profile, socialLinks, stats, systemSignals } from "@/data/portfolio";
 
 export function Hero() {
   return (
-    <section id="home" className="container-shell scroll-mt-24 pb-14 pt-8 sm:pt-12">
-      {/* meta row */}
-      <Reveal>
-        <div className="flex flex-wrap items-center justify-between gap-3 border-y-2 border-ink py-3 font-mono text-xs font-bold uppercase tracking-[0.1em]">
-          <span className="flex items-center gap-2">
-            <span className="pulse-dot inline-block size-2 rounded-full bg-accent" />
-            Available for work
-          </span>
-          <span className="hidden items-center gap-2 sm:flex">
-            <MapPin size={13} aria-hidden="true" />
-            {profile.location}
-          </span>
-          <span className="hidden lg:inline">Backend Engineer · Go / APIs</span>
-        </div>
-      </Reveal>
-
-      <div className="grid items-start gap-10 pt-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-14">
+    <section id="home" className="container-shell scroll-mt-24 pb-20 pt-14 sm:pt-20">
+      <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
+        {/* left column */}
         <div className="min-w-0">
-          <Reveal delay={60}>
-            <h1 className="text-[clamp(2.9rem,7.5vw,6.2rem)] font-extrabold leading-[0.9] tracking-tightest">
-              Backend systems
-              <br />
-              that leave a{" "}
-              <span className="mark">clean</span> <span className="underline-accent">interface</span>
-              <br />
-              behind.
-            </h1>
-          </Reveal>
-
-          <Reveal delay={140}>
-            <p className="mt-8 max-w-xl text-lg leading-8 text-inksoft">
-              I&apos;m <span className="font-bold text-ink">Martin Bozhilov</span> — I build Go
-              services, schema-driven tools, marketplace backends, and product workflows where the
-              database, API, workers, and deployment path are one system.
+          <Reveal>
+            <p className="mono-label font-bold text-accent">
+              Software Engineer · Backend &amp; Developer Tools
             </p>
           </Reveal>
 
-          <Reveal delay={220}>
+          <Reveal delay={60}>
+            <h1 className="mt-6 text-[clamp(2.6rem,6.5vw,4.6rem)] font-extrabold leading-[0.95] tracking-tightest text-text">
+              Backend systems that leave a{" "}
+              <span className="text-accent">clean interface</span> behind.
+            </h1>
+          </Reveal>
+
+          <Reveal delay={120}>
+            <p className="mt-7 max-w-xl text-[1.0625rem] leading-[1.7] text-muted">
+              I&apos;m{" "}
+              <span className="font-semibold text-text">Martin Bozhilov</span> — I
+              build Go services, schema-driven tools, marketplace backends, and
+              product workflows where the database, API, workers, and deployment
+              path are one system.
+            </p>
+          </Reveal>
+
+          <Reveal delay={180}>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a
-                href="#projects"
-                className="focus-ring nb-shadow group inline-flex items-center justify-center gap-2 border-2 border-ink bg-accent px-6 py-3.5 text-sm font-extrabold uppercase tracking-[0.04em] text-paper transition hover:translate-x-[-2px] hover:translate-y-[-2px]"
-              >
+              <a href="#projects" className="btn btn-accent focus-ring group">
                 Explore the work
                 <ArrowDownRight
-                  size={18}
+                  size={16}
                   className="transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5"
                   aria-hidden="true"
                 />
               </a>
               <a
                 href={`mailto:${profile.email}`}
-                className="focus-ring nb-shadow inline-flex items-center justify-center gap-2 border-2 border-ink bg-paper2 px-6 py-3.5 text-sm font-extrabold uppercase tracking-[0.04em] text-ink transition hover:bg-ink hover:text-paper"
+                className="btn btn-outline focus-ring"
               >
-                <Mail size={17} aria-hidden="true" />
                 Start a conversation
               </a>
             </div>
           </Reveal>
 
-          <Reveal delay={300}>
-            <div className="mt-10 flex items-center gap-4">
-              <div className="relative size-12 overflow-hidden border-2 border-ink">
-                <Image
-                  src="/martin-github-avatar.jpg"
-                  alt="Martin Bozhilov"
-                  fill
-                  priority
-                  sizes="48px"
-                  className="object-cover"
-                />
-              </div>
-              <div className="flex gap-2">
-                {socialLinks.map(({ label, href, icon: Icon }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target={href.startsWith("http") ? "_blank" : undefined}
-                    rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="focus-ring inline-grid size-10 place-items-center border-2 border-ink bg-paper2 text-ink transition hover:bg-accent hover:text-paper"
-                    aria-label={`Open ${label}`}
-                  >
-                    <Icon size={17} aria-hidden="true" />
-                  </a>
-                ))}
-              </div>
+          <Reveal delay={240}>
+            <div className="mt-8 flex flex-wrap gap-2.5">
+              {socialLinks.map(({ label, href, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="focus-ring inline-flex items-center gap-2 rounded-chip border border-linestrong px-3.5 py-2 font-mono text-[11px] font-bold uppercase tracking-[0.08em] text-muted transition hover:border-accent hover:text-accent"
+                  aria-label={`Open ${label}`}
+                >
+                  <Icon size={14} aria-hidden="true" />
+                  {label}
+                </a>
+              ))}
             </div>
           </Reveal>
         </div>
 
-        {/* right: terminal + signals */}
-        <Reveal delay={180} className="min-w-0">
-          <Terminal />
+        {/* right column: system map + signals */}
+        <Reveal delay={140} className="min-w-0">
+          <SystemMap />
 
-          <div className="mt-4 grid grid-cols-2 gap-3">
+          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
             {systemSignals.map((item) => (
-              <div key={item.label} className="nb p-4">
-                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-inksoft">
-                  {item.label}
+              <div key={item.label} className="panel p-4">
+                <p className="mono-label text-faint">{item.label}</p>
+                <p className="mt-2 text-[15px] font-extrabold tracking-tight text-text">
+                  {item.value}
                 </p>
-                <p className="mt-1 text-sm font-bold text-ink">{item.value}</p>
               </div>
             ))}
           </div>
@@ -115,18 +89,20 @@ export function Hero() {
 
       {/* stats strip */}
       <Reveal delay={120}>
-        <div className="mt-14 grid grid-cols-2 border-2 border-ink sm:grid-cols-4">
+        <div className="mt-16 grid grid-cols-2 overflow-hidden rounded-card border border-line sm:grid-cols-4">
           {stats.map((stat, i) => (
             <div
               key={stat.label}
-              className={`group bg-paper2 px-5 py-7 transition-colors hover:bg-ink hover:text-paper ${
-                i < 2 ? "border-b-2 sm:border-b-0" : ""
-              } ${i % 2 === 0 ? "border-r-2" : ""} ${
-                i === 0 || i === 1 || i === 2 ? "sm:border-r-2" : ""
-              } border-ink`}
+              className={`bg-surface px-5 py-7 ${
+                i < 2 ? "border-b border-line sm:border-b-0" : ""
+              } ${i % 2 === 0 ? "border-r border-line" : ""} ${
+                i < 3 ? "sm:border-r sm:border-line" : ""
+              }`}
             >
-              <p className="text-3xl font-extrabold tracking-tight">{stat.value}</p>
-              <p className="mt-2 font-mono text-xs leading-5 text-inksoft group-hover:text-paper/70">
+              <p className="text-[2.125rem] font-extrabold leading-none tracking-tightest text-text">
+                {stat.value}
+              </p>
+              <p className="mono-label mt-3 leading-[1.5] text-muted">
                 {stat.label}
               </p>
             </div>

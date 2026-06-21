@@ -1,37 +1,27 @@
 import { Reveal } from "@/components/Reveal";
 
 type SectionHeadingProps = {
-  eyebrow: string;
+  /** Section index, e.g. "02" → rendered as "/02" in accent. */
+  index: string;
+  /** Short uppercase mono kicker. */
+  kicker: string;
   title: string;
   description?: string;
-  index?: string;
-  invert?: boolean;
 };
 
-export function SectionHeading({ eyebrow, title, description, index, invert }: SectionHeadingProps) {
+export function SectionHeading({ index, kicker, title, description }: SectionHeadingProps) {
   return (
     <Reveal className="mb-12">
-      <div className="flex items-end justify-between gap-4 border-b-2 border-current pb-3">
-        <span className="font-mono text-xs font-bold uppercase tracking-[0.16em] text-accent">
-          {eyebrow}
-        </span>
-        {index ? (
-          <span
-            className={`font-mono text-sm font-bold ${invert ? "text-paper/40" : "text-inksoft"}`}
-          >
-            [ {index} / 06 ]
-          </span>
-        ) : null}
+      <div className="flex items-center gap-3">
+        <span className="mono-label font-bold text-accent">/{index}</span>
+        <span className="h-px w-[22px] bg-line" aria-hidden="true" />
+        <span className="mono-label text-faint">{kicker}</span>
       </div>
-      <h2 className="mt-6 max-w-3xl text-4xl font-extrabold leading-[0.95] tracking-tightest sm:text-[3.2rem]">
+      <h2 className="mt-5 max-w-3xl text-[clamp(1.9rem,3.6vw,2.5rem)] font-extrabold leading-[1.02] tracking-tightest text-text">
         {title}
       </h2>
       {description ? (
-        <p
-          className={`mt-5 max-w-2xl text-base leading-7 sm:text-lg ${
-            invert ? "text-paper/70" : "text-inksoft"
-          }`}
-        >
+        <p className="mt-5 max-w-2xl text-base leading-7 text-muted sm:text-[1.0625rem]">
           {description}
         </p>
       ) : null}

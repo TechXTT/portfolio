@@ -10,7 +10,6 @@ import {
   Mail,
   Network,
   ShieldCheck,
-  TerminalSquare,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -37,14 +36,49 @@ export type PortfolioProject = {
 export const profile = {
   name: "Martin Bozhilov",
   role: "Junior Software Engineer / Backend Developer",
+  shortRole: "Backend Engineer",
+  monogram: "MB",
   headline:
     "Backend developer building Go services, developer tools, and cloud-native product systems.",
   subheadline:
     "I’m Martin Bozhilov, a software developer focused on Go, APIs, database-driven systems, cloud deployment, and clean developer tooling.",
-  location: "Eindhoven, Netherlands / Bulgaria",
+  location: "Eindhoven, Netherlands / Sofia, Bulgaria",
+  locationShort: "Eindhoven, NL / Sofia, BG",
   email: "martin@bozhilov.me",
   github: "https://github.com/TechXTT",
-  linkedin: "https://www.linkedin.com/in/martin-bozhilov-796a6b225/",
+  githubHandle: "github.com/TechXTT",
+  linkedin: "https://www.linkedin.com/in/martin-b-bozhilov",
+  linkedinHandle: "linkedin.com/in/martin-b-bozhilov",
+};
+
+/** Thin status strip at the very top of the page. */
+export const statusBar = {
+  status: "Available for work",
+  location: "Eindhoven, NL / Sofia, BG",
+  stack: ["Go", "APIs", "Postgres", "K8s"],
+};
+
+/**
+ * Architecture node-graph for the hero "System Map" panel.
+ * `nodes` are the primary vertical path (accent connectors); `branches`
+ * hang off a primary node id (secondary --line connectors).
+ */
+export const systemMap = {
+  file: "architecture.map",
+  nodes: [
+    { id: "clients", label: "CLIENTS" },
+    { id: "api", label: "GO · API", primary: true },
+    { id: "postgres", label: "POSTGRESQL" },
+    { id: "delivery", label: "RAILWAY · VERCEL · DOCKER" },
+  ],
+  branches: [
+    { from: "api", label: "WORKERS" },
+    { from: "postgres", label: "PRISMA" },
+  ],
+} satisfies {
+  file: string;
+  nodes: Array<{ id: string; label: string; primary?: boolean }>;
+  branches: Array<{ from: string; label: string }>;
 };
 
 export const navItems = [
@@ -86,9 +120,9 @@ export const socialLinks = [
 
 export const stats = [
   { value: "46", label: "Public GitHub repositories" },
-  { value: "25", label: "GitHub followers" },
+  { value: "26", label: "GitHub followers" },
   { value: "TORM v1", label: "Open-source Go ORM" },
-  { value: "Fontys", label: "ICT student in Eindhoven" },
+  { value: "Fontys", label: "ICT student · Eindhoven" },
 ];
 
 export const systemSignals = [
@@ -136,7 +170,7 @@ export const operatingPrinciples = [
 ];
 
 export const aboutParagraphs = [
-  "I’m Martin Bozhilov, a junior software engineer and backend-focused developer with a strong focus on Go, APIs, database-driven applications, and cloud-native systems. I enjoy building practical tools that make development faster, cleaner, and more reliable.",
+  "I'm Martin Bozhilov, a backend developer from Bulgaria focused on Go, APIs, database-driven systems, and cloud-native architecture. I build practical open-source tools, and I care about distributed systems, clean developer tooling, and interfaces other people can trust.",
   "My public GitHub work spans TORM, a schema-driven Go ORM, xolto, a Go API and worker runtime, The Bazaar marketplace ecosystem, and full-stack product systems such as ELSYS and Assist. Across those projects I’ve worked with PostgreSQL, Prisma, Docker, Kubernetes, Railway, Vercel, OAuth, Stripe, and AI integrations.",
   "I’m currently studying Information and Communication Technology at Fontys University of Applied Sciences while continuing to build open-source tools, backend systems, and product-focused software.",
 ];
@@ -147,12 +181,15 @@ export const projects = [
     service: "torm.orm",
     subtitle: "Schema-driven Go ORM and CLI inspired by Prisma",
     description:
-      "TORM is a lightweight Go ORM that uses a Prisma-style schema as the source of truth, then generates Go structs, a database client, service methods, and SQL migration files. It includes schema parsing, type-safe query builders, automated migrations, relation support, enums, UUIDs, and PostgreSQL-focused workflows.",
+      "TORM is a lightweight Go ORM that uses a Prisma-style schema as the source of truth, then generates Go structs, a database client, service methods, and SQL migration files. Shipped as v1.0.0 across 27 releases, installable via `go install github.com/TechXTT/TORM/cmd/torm@latest`, and published on pkg.go.dev.",
     tags: ["Go", "PostgreSQL", "ORM", "CLI", "Code Generation", "Migrations"],
     href: "https://github.com/TechXTT/TORM",
-    links: [{ label: "Repository", href: "https://github.com/TechXTT/TORM" }],
+    links: [
+      { label: "Repository", href: "https://github.com/TechXTT/TORM" },
+      { label: "pkg.go.dev", href: "https://pkg.go.dev/github.com/TechXTT/TORM" },
+    ],
     featured: true,
-    badge: "Featured Open Source Tool",
+    badge: "v1.0.0 · OSS",
     signal: "A toolchain project with parser, generator, migration, and client layers.",
     interfaces: ["schema.prisma", "Go client", "SQL migrations", "CLI commands"],
     ships: ["type-safe queries", "relation support", "enum/UUID support"],
@@ -162,17 +199,17 @@ export const projects = [
     service: "xolto.app",
     subtitle: "Go API and worker runtime for a used-electronics buying copilot",
     description:
-      "xolto is a Go backend deployed behind api.xolto.app, with authenticated missions, search runs, AI-generated search queries, billing tiers, observability, email alerts, and frontend clients for buyers, admins, and the public landing page.",
-    tags: ["Go", "Workers", "OAuth", "Stripe", "AI API", "Railway", "Observability"],
+      "Go API + worker runtime behind api.xolto.app. Scores used-electronics listings from Marktplaats, Vinted, and OLX.bg into buy / negotiate / skip verdicts — with Google OAuth, Stripe Free/Buyer/Pro tiers, SSE deal alerts, and Sentry observability.",
+    tags: ["Go", "Workers", "OAuth", "Stripe", "SSE", "Sentry", "Railway"],
     href: "https://github.com/TechXTT/xolto",
     links: [
-      { label: "API Repo", href: "https://github.com/TechXTT/xolto" },
+      { label: "API", href: "https://api.xolto.app" },
       { label: "Buyer App", href: "https://dash.xolto.app" },
       { label: "Admin App", href: "https://admin.xolto.app" },
       { label: "Landing", href: "https://www.xolto.app" },
     ],
     featured: true,
-    badge: "Current Product System",
+    badge: "Product",
     signal: "A product backend with auth, workers, alerts, AI-assisted search, and billing.",
     interfaces: ["REST API", "worker runtime", "buyer dashboard", "admin surface"],
     ships: ["missions/searches", "Stripe tiers", "email alerts"],
@@ -180,9 +217,9 @@ export const projects = [
   {
     title: "The Bazaar",
     service: "bazaar.market",
-    subtitle: "Diploma thesis marketplace platform",
+    subtitle: "Diploma-thesis blockchain marketplace platform",
     description:
-      "The Bazaar is a marketplace ecosystem split across a Go backend, TypeScript frontend, and Solidity/TypeScript escrow contract. The contract supports ETH and USDC orders, buyer release, refunds, batched claims, and ERC-792 / ERC-1497 dispute and evidence hooks.",
+      "The Bazaar is a diploma-thesis marketplace ecosystem — a monorepo of bazaar-backend, bazaar-contract, and bazaar-frontend submodules under The-Bazaar. The Solidity/TypeScript escrow contract supports ETH and USDC orders, buyer release, refunds, batched claims, and ERC-792 / ERC-1497 dispute and evidence hooks.",
     tags: ["Go", "TypeScript", "Solidity", "Marketplace", "Escrow", "Smart Contracts"],
     href: "https://github.com/TechXTT/The-Bazaar",
     links: [
@@ -192,6 +229,7 @@ export const projects = [
       { label: "Contract", href: "https://github.com/TechXTT/bazaar-contract" },
     ],
     featured: true,
+    badge: "Thesis",
     signal: "A multi-repo marketplace where backend, frontend, and escrow contracts meet.",
     interfaces: ["Go backend", "Next frontend", "Solidity escrow", "ABI sync"],
     ships: ["ETH/USDC orders", "dispute hooks", "batched claims"],
@@ -218,8 +256,8 @@ export const projects = [
     service: "assist.app",
     subtitle: "Personal dashboard with AI, Gmail, and open banking integrations",
     description:
-      "Assist is a single-user personal-life dashboard for schedule, tasks, money, health, briefings, and weekly reviews. It uses Next.js, Prisma, NextAuth, Google Calendar and Gmail integrations, AI-generated summaries, and PSD2 open-banking transaction sync.",
-    tags: ["Next.js", "Prisma", "NextAuth", "Google APIs", "Open Banking", "AI"],
+      "A single-user life dashboard for schedule, tasks, money, health, briefings, and weekly reviews. Next.js 14 + Prisma + NextAuth, with Anthropic Haiku 4.5 summaries (deterministic fallback), Gmail receipt scanning, and PSD2 open-banking sync — Revolut + ~2500 banks via Enable Banking.",
+    tags: ["Next.js", "TypeScript", "Prisma", "NextAuth", "Anthropic", "Open Banking"],
     href: "https://github.com/TechXTT/Assist",
     links: [{ label: "Repository", href: "https://github.com/TechXTT/Assist" }],
     featured: false,
@@ -243,20 +281,34 @@ export const projects = [
   },
 ] satisfies PortfolioProject[];
 
-export const experience = [
+export type ExperienceItem = {
+  company: string;
+  role: string;
+  period: string;
+  periodLabel: string;
+  type: string;
+  current?: boolean;
+  points: string[];
+};
+
+export const experience: ExperienceItem[] = [
   {
     company: "Opsie.ai",
     role: "Junior Software Engineer",
-    period: "Current",
+    period: "Jan 2026 - Mar 2026",
+    periodLabel: "2026 / Jan–Mar",
+    type: "Full-time",
     points: [
-      "Current LinkedIn-listed software engineering role.",
-      "Continuing backend, product, and developer-tooling work alongside Fontys ICT studies.",
+      "Software engineering role building backend and product features.",
+      "Worked on backend, product, and developer-tooling alongside Fontys ICT studies.",
     ],
   },
   {
     company: "TORM",
     role: "Creator / Open Source Developer",
     period: "Feb 2025 - Jun 2025",
+    periodLabel: "2025 / Feb–Jun",
+    type: "Open source",
     points: [
       "Built a schema-driven Go ORM inspired by Prisma.",
       "Implemented schema parsing, generated Go models and clients, type-safe query helpers, relation handling, and migration workflows.",
@@ -267,6 +319,8 @@ export const experience = [
     company: "Assetify",
     role: "Mobile Developer",
     period: "Sep 2023 - Jun 2024",
+    periodLabel: "2023–24 / Sep–Jun",
+    type: "Part-time",
     points: [
       "Developed a native mobile application using React Native.",
       "Adapted libraries to work natively on devices using Java and Swift.",
@@ -276,6 +330,8 @@ export const experience = [
     company: "Encorp.io",
     role: "Backend & Crypto Developer Intern",
     period: "Jun 2023 - Jul 2023",
+    periodLabel: "2023 / Jun–Jul",
+    type: "Internship",
     points: [
       "Developed a crypto contract observer using Go, Ethereum, and Solidity.",
       "Built event-observation flow around Lock events and voting behavior.",
@@ -286,6 +342,8 @@ export const experience = [
     company: "MediaHub",
     role: "Backend Developer Intern",
     period: "Jul 2022 - Aug 2022",
+    periodLabel: "2022 / Jul–Aug",
+    type: "Internship",
     points: [
       "Worked with the company’s IPTV product.",
       "Created a tester for backend services using Go.",
@@ -341,11 +399,23 @@ export const skillGroups = [
   },
 ] satisfies Array<{ title: string; icon: LucideIcon; items: string[] }>;
 
-export const education = [
+export type EducationItem = {
+  institution: string;
+  program: string;
+  period: string;
+  category: string;
+  location: string;
+  details: string[];
+  icon: LucideIcon;
+};
+
+export const education: EducationItem[] = [
   {
     institution: "Fontys University of Applied Sciences",
     program: "Information and Communication Technology",
     period: "Sep 2024 - Ongoing",
+    category: "University",
+    location: "Eindhoven, NL",
     details: [],
     icon: GraduationCap,
   },
@@ -353,6 +423,8 @@ export const education = [
     institution: "Technology School “Electronic Systems” associated with TU-Sofia",
     program: "Software Programming",
     period: "Sep 2019 - Jun 2024",
+    category: "Secondary",
+    location: "Sofia, BG",
     details: [
       "Diploma za sredno obrazovanie",
       "Certificate of professional qualification for Software Programming",
@@ -363,15 +435,19 @@ export const education = [
     institution: "IELTS",
     program: "English Language IELTS 7.5, C1",
     period: "Valid Oct 2023 - Oct 2025",
+    category: "Certification",
+    location: "British Council",
     details: [],
     icon: ShieldCheck,
   },
 ];
 
-export const terminalLines = [
-  "go build schema-driven-tools",
-  "ship api workers on railway",
-  "sync contracts + services",
-];
+/** Key/value rows for the Contact "CONTACT.INFO" card. */
+export const contactInfo = [
+  { label: "Email", value: profile.email, href: `mailto:${profile.email}` },
+  { label: "GitHub", value: profile.githubHandle, href: profile.github },
+  { label: "LinkedIn", value: profile.linkedinHandle, href: profile.linkedin },
+  { label: "Location", value: profile.locationShort, href: null },
+] satisfies Array<{ label: string; value: string; href: string | null }>;
 
-export const terminalIcon = TerminalSquare;
+export const footerNote = "Designed as a system.";

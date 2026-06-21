@@ -1,26 +1,37 @@
+import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
 import { TimelineItem } from "@/components/TimelineItem";
 import { experience } from "@/data/portfolio";
 
 export function Experience() {
   return (
-    <section id="experience" className="container-shell scroll-mt-24 py-20 sm:py-28">
-      <SectionHeading
-        index="03"
-        eyebrow="Experience"
-        title="Chronology of product and backend work."
-        description="Open-source tools, current software engineering work, internships, and product teams."
-      />
+    <section id="experience" className="section-divide scroll-mt-24">
+      <div className="container-shell section-pad">
+        <SectionHeading
+          index="04"
+          kicker="Experience"
+          title="A log of product and backend work."
+          description="Open-source tools, current software engineering work, internships, and product teams."
+        />
 
-      <ol className="relative ml-[7px] border-l-2 border-ink sm:ml-3">
-        {experience.map((item, index) => (
-          <TimelineItem
-            key={`${item.company}-${item.period}`}
-            item={item}
-            index={index}
-          />
-        ))}
-      </ol>
+        <Reveal>
+          <div className="panel overflow-hidden">
+            <div className="panel-header justify-between">
+              <span className="mono-label text-faint">work.log</span>
+              <span className="mono-label text-faint">{experience.length} entries</span>
+            </div>
+            <ol>
+              {experience.map((item, index) => (
+                <TimelineItem
+                  key={`${item.company}-${item.period}`}
+                  item={item}
+                  isLast={index === experience.length - 1}
+                />
+              ))}
+            </ol>
+          </div>
+        </Reveal>
+      </div>
     </section>
   );
 }

@@ -4,40 +4,47 @@ import { aboutParagraphs, operatingPrinciples } from "@/data/portfolio";
 
 export function About() {
   return (
-    <section id="about" className="container-shell scroll-mt-24 py-20 sm:py-28">
-      <SectionHeading
-        index="01"
-        eyebrow="Operator Notes"
-        title="The work is backend, but the output is an interface people can trust."
-        description="The through-line is not a specific framework. It's clean contracts, explicit data flows, and tools that remove backend friction."
-      />
+    <section id="about" className="section-divide scroll-mt-24">
+      <div className="container-shell section-pad">
+        <SectionHeading
+          index="02"
+          kicker="About"
+          title="The work is backend. The interface it leaves behind is the point."
+        />
 
-      <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_440px]">
-        <Reveal className="nb nb-shadow p-7 sm:p-9">
-          <span className="font-mono text-6xl font-bold leading-none text-accent">&ldquo;</span>
-          <div className="mt-2 space-y-5 text-base leading-8 text-inksoft sm:text-lg">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,440px)] lg:gap-12">
+          <Reveal className="space-y-5 text-base leading-[1.7] text-muted sm:text-[1.0625rem]">
             {aboutParagraphs.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
-          </div>
-        </Reveal>
+          </Reveal>
 
-        <div className="grid gap-3">
-          {operatingPrinciples.map((principle, index) => (
-            <Reveal key={principle.label} delay={index * 60}>
-              <div className="nb nb-hover nb-hover-accent group p-5">
-                <div className="flex items-center justify-between gap-4">
-                  <p className="font-mono text-xs font-bold uppercase tracking-[0.12em] text-ink">
-                    {principle.label}
-                  </p>
-                  <span className="grid size-6 place-items-center border-2 border-ink font-mono text-[11px] font-bold group-hover:border-accent group-hover:text-accent">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                </div>
-                <p className="mt-3 text-sm leading-7 text-inksoft">{principle.value}</p>
+          <Reveal delay={80}>
+            <div className="panel overflow-hidden">
+              <div className="panel-header justify-between">
+                <span className="mono-label text-faint">Operating Principles</span>
+                <span className="diamond" aria-hidden="true" />
               </div>
-            </Reveal>
-          ))}
+              <ul>
+                {operatingPrinciples.map((principle, index) => (
+                  <li
+                    key={principle.label}
+                    className="flex gap-4 px-5 py-4 [&:not(:last-child)]:border-b [&:not(:last-child)]:border-line"
+                  >
+                    <span className="mono-label shrink-0 pt-0.5 font-bold text-accent">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <div>
+                      <p className="mono-label font-bold text-text">{principle.label}</p>
+                      <p className="mt-2 text-sm leading-[1.6] text-muted">
+                        {principle.value}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

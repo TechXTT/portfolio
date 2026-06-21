@@ -1,85 +1,86 @@
-import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
+import { ArrowDownRight } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
-import { profile } from "@/data/portfolio";
-
-const contactCards = [
-  { label: "Email", value: profile.email, href: `mailto:${profile.email}`, icon: Mail },
-  { label: "GitHub", value: "github.com/TechXTT", href: profile.github, icon: Github },
-  {
-    label: "LinkedIn",
-    value: profile.linkedin.replace("https://www.", "").replace(/\/$/, ""),
-    href: profile.linkedin,
-    icon: Linkedin,
-  },
-];
+import { contactInfo, profile } from "@/data/portfolio";
 
 export function Contact() {
   return (
-    <section
-      id="contact"
-      className="invert scroll-mt-24 border-t-2 border-ink py-20 sm:py-28"
-    >
-      <div className="container-shell">
+    <section id="contact" className="section-divide scroll-mt-24">
+      <div className="container-shell section-pad">
         <SectionHeading
-          index="06"
-          eyebrow="Contact"
-          title="Building backend systems, developer tools, or Go-based projects?"
-          description="Let's connect about backend platforms, Go tooling, cloud-native systems, internships, freelance work, or open-source collaboration."
-          invert
+          index="07"
+          kicker="Contact"
+          title="Let's build something backend-shaped."
+          description="Backend platforms, Go tooling, cloud-native systems, internships, freelance work, or open-source collaboration."
         />
 
         <Reveal>
-          <div className="flex flex-col justify-between gap-6 border-2 border-paper bg-ink p-7 sm:p-9 md:flex-row md:items-end">
-            <div>
-              <p className="font-mono text-xs font-bold uppercase tracking-[0.16em] text-accent">
-                Direct line
-              </p>
-              <p className="mt-4 max-w-2xl text-3xl font-extrabold leading-[0.98] tracking-tightest sm:text-4xl">
-                Email is the best starting point. GitHub & LinkedIn are there for context.
-              </p>
-            </div>
-            <a
-              href={`mailto:${profile.email}`}
-              className="focus-ring group inline-flex shrink-0 items-center justify-center gap-2 border-2 border-paper bg-accent px-6 py-3.5 text-sm font-extrabold uppercase tracking-[0.04em] text-paper transition hover:bg-paper hover:text-ink"
-            >
-              <Mail size={18} aria-hidden="true" />
-              Send an email
-              <ArrowUpRight
-                size={16}
-                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                aria-hidden="true"
-              />
-            </a>
-          </div>
-        </Reveal>
+          <div className="overflow-hidden rounded-card border border-line bg-surface">
+            <div className="h-[3px] w-full bg-accent" aria-hidden="true" />
+            <div className="grid gap-10 p-7 sm:p-9 lg:grid-cols-[minmax(0,1fr)_minmax(0,360px)] lg:gap-12">
+              {/* left */}
+              <div className="flex flex-col">
+                <p className="max-w-xl text-base leading-[1.7] text-muted sm:text-[1.0625rem]">
+                  Email is the best starting point — GitHub and LinkedIn are there
+                  for context. If you&apos;re building something backend-shaped, I&apos;d
+                  like to hear about it.
+                </p>
 
-        <div className="mt-5 grid gap-5 sm:grid-cols-3">
-          {contactCards.map(({ label, value, href, icon: Icon }, i) => (
-            <Reveal key={label} delay={i * 70}>
-              <a
-                href={href}
-                target={href.startsWith("http") ? "_blank" : undefined}
-                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="nb-hover group flex h-full flex-col border-2 border-paper bg-ink p-6 transition-colors hover:bg-paper hover:text-ink"
-                aria-label={`Open ${label}`}
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <span className="grid size-10 place-items-center border-2 border-current text-accent">
-                    <Icon size={18} aria-hidden="true" />
-                  </span>
-                  <ArrowUpRight
+                <a
+                  href={`mailto:${profile.email}`}
+                  className="btn btn-accent focus-ring group mt-7 w-fit"
+                >
+                  Start a conversation
+                  <ArrowDownRight
                     size={16}
-                    className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    className="transition-transform group-hover:translate-x-0.5 group-hover:translate-y-0.5"
                     aria-hidden="true"
                   />
+                </a>
+
+                <p className="mono-label mt-6 flex items-center gap-2 text-faint">
+                  <span className="status-dot pulse-dot size-2" aria-hidden="true" />
+                  Available for work · usually replies within a day
+                </p>
+              </div>
+
+              {/* right: contact.info */}
+              <div className="panel overflow-hidden">
+                <div className="panel-header justify-between">
+                  <span className="mono-label text-faint">contact.info</span>
+                  <span className="diamond" aria-hidden="true" />
                 </div>
-                <p className="mt-5 text-sm font-extrabold uppercase tracking-[0.04em]">{label}</p>
-                <p className="mt-1.5 break-words font-mono text-xs leading-6 opacity-70">{value}</p>
-              </a>
-            </Reveal>
-          ))}
-        </div>
+                <dl>
+                  {contactInfo.map(({ label, value, href }) => (
+                    <div
+                      key={label}
+                      className="flex items-center justify-between gap-4 px-4 py-3.5 [&:not(:last-child)]:border-b [&:not(:last-child)]:border-line"
+                    >
+                      <dt className="mono-label text-faint">{label}</dt>
+                      <dd className="min-w-0">
+                        {href ? (
+                          <a
+                            href={href}
+                            target={href.startsWith("http") ? "_blank" : undefined}
+                            rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                            className="focus-ring block truncate font-mono text-xs text-muted transition hover:text-accent"
+                            aria-label={`Open ${label}`}
+                          >
+                            {value}
+                          </a>
+                        ) : (
+                          <span className="block truncate font-mono text-xs text-muted">
+                            {value}
+                          </span>
+                        )}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

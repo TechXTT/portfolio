@@ -37,23 +37,30 @@ export function Navbar() {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b-2 border-ink bg-paper">
+    <header className="sticky top-0 z-50 hairline-b bg-bg/90 backdrop-blur supports-[backdrop-filter]:bg-bg/75">
       <nav
         aria-label="Primary navigation"
         className="container-shell flex h-16 items-center justify-between"
       >
         <a
           href="#home"
-          className="focus-ring group flex items-center gap-3 text-sm font-extrabold"
+          className="focus-ring group flex items-center gap-3"
           onClick={closeMenu}
         >
-          <span className="grid size-9 place-items-center border-2 border-ink bg-accent text-[13px] font-extrabold text-paper transition-transform group-hover:-rotate-6">
-            MB
+          <span className="grid size-9 place-items-center rounded-chip border border-accent text-[13px] font-extrabold text-accent">
+            {profile.monogram}
           </span>
-          <span className="hidden tracking-tight sm:inline">{profile.name}</span>
+          <span className="hidden flex-col leading-none sm:flex">
+            <span className="text-sm font-extrabold tracking-tight text-text">
+              {profile.name}
+            </span>
+            <span className="mono-label mt-1 text-[10px] text-faint">
+              {profile.shortRole}
+            </span>
+          </span>
         </a>
 
-        <div className="hidden items-center md:flex">
+        <div className="hidden items-center gap-1 md:flex">
           {navItems.map((item) => {
             const id = item.href.replace("#", "");
             const isActive = active === id;
@@ -61,56 +68,57 @@ export function Navbar() {
               <a
                 key={item.href}
                 href={item.href}
-                className={`focus-ring border-b-2 px-3.5 py-1.5 font-mono text-xs font-bold uppercase tracking-[0.08em] transition-colors ${
+                className={`mono-label focus-ring rounded-chip px-3 py-2 font-bold transition-colors ${
                   isActive
-                    ? "border-accent text-accent"
-                    : "border-transparent text-ink hover:border-ink"
+                    ? "text-accent"
+                    : "text-muted hover:text-text"
                 }`}
               >
                 {item.label}
               </a>
             );
           })}
+          <a
+            href={`mailto:${profile.email}`}
+            className="btn btn-accent focus-ring ml-3"
+          >
+            Let&apos;s talk
+          </a>
         </div>
 
-        <a
-          href={`mailto:${profile.email}`}
-          className="focus-ring nb-shadow hidden items-center gap-2 border-2 border-ink bg-ink px-4 py-2 font-mono text-xs font-bold uppercase tracking-[0.08em] text-paper transition hover:bg-accent hover:text-paper md:inline-flex"
-        >
-          Let&apos;s talk
-        </a>
-
-        <button
-          type="button"
-          className="focus-ring inline-grid size-10 place-items-center border-2 border-ink bg-paper2 text-ink md:hidden"
-          aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
-          aria-expanded={isOpen}
-          onClick={() => setIsOpen((value) => !value)}
-        >
-          {isOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <a
+            href={`mailto:${profile.email}`}
+            className="btn btn-accent focus-ring px-3.5 py-2.5 text-[0.66rem]"
+            onClick={closeMenu}
+          >
+            Let&apos;s talk
+          </a>
+          <button
+            type="button"
+            className="focus-ring inline-grid size-10 place-items-center rounded-chip border border-line text-text"
+            aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+            aria-expanded={isOpen}
+            onClick={() => setIsOpen((value) => !value)}
+          >
+            {isOpen ? <X size={18} aria-hidden="true" /> : <Menu size={18} aria-hidden="true" />}
+          </button>
+        </div>
       </nav>
 
       {isOpen ? (
-        <div className="border-t-2 border-ink bg-paper md:hidden">
-          <div className="container-shell grid gap-2 py-5">
+        <div className="hairline-t bg-bg md:hidden">
+          <div className="container-shell grid gap-1.5 py-4">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="focus-ring border-2 border-ink bg-paper2 px-4 py-3 font-mono text-sm font-bold uppercase tracking-[0.06em] text-ink transition hover:bg-accent hover:text-paper"
+                className="mono-label focus-ring rounded-chip border border-line bg-surface px-4 py-3 font-bold text-muted transition hover:border-accent hover:text-accent"
                 onClick={closeMenu}
               >
                 {item.label}
               </a>
             ))}
-            <a
-              href={`mailto:${profile.email}`}
-              className="focus-ring mt-1 border-2 border-ink bg-ink px-4 py-3 text-center font-mono text-sm font-bold uppercase text-paper"
-              onClick={closeMenu}
-            >
-              Let&apos;s talk
-            </a>
           </div>
         </div>
       ) : null}
