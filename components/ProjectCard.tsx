@@ -1,5 +1,6 @@
-import { ArrowUpRight, Github } from "lucide-react";
+import { ArrowUpRight, Github, Star } from "lucide-react";
 import type { PortfolioProject } from "@/data/portfolio";
+import { relativeDate } from "@/lib/format";
 
 type ProjectCardProps = {
   project: PortfolioProject;
@@ -8,6 +9,10 @@ type ProjectCardProps = {
 
 export function ProjectCard({ project, index }: ProjectCardProps) {
   const links = project.links ?? (project.href ? [{ label: "Repository", href: project.href }] : []);
+  const live = project.live;
+  const updated = relativeDate(live?.lastPushed);
+  const hasLiveMeta =
+    live && (typeof live.stars === "number" || Boolean(live.language) || Boolean(updated));
 
   return (
     <article
@@ -52,6 +57,19 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         <p className="mono-label mt-6 leading-[1.6] text-faint">
           {project.tags.join(" · ")}
         </p>
+
+        {hasLiveMeta ? (
+          <p className="mono-label mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-faint">
+            {typeof live!.stars === "number" ? (
+              <span className="inline-flex items-center gap-1">
+                <Star size={11} aria-hidden="true" />
+                {live!.stars}
+              </span>
+            ) : null}
+            {live!.language ? <span>{live!.language}</span> : null}
+            {updated ? <span>updated {updated}</span> : null}
+          </p>
+        ) : null}
 
         <div className="mt-auto flex flex-wrap gap-2 pt-6">
           {links.map((link) => (

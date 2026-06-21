@@ -10,8 +10,11 @@ import { Projects } from "@/components/Projects";
 import { Skills } from "@/components/Skills";
 import { StatusStrip } from "@/components/StatusStrip";
 import { heroBadges } from "@/data/portfolio";
+import { getPortfolioData } from "@/lib/portfolio";
 
-export default function Home() {
+export default async function Home() {
+  const data = await getPortfolioData();
+
   return (
     <div className="relative min-h-screen bg-bg text-text">
       <div
@@ -24,10 +27,10 @@ export default function Home() {
         <Navbar />
 
         <main>
-          <Hero />
+          <Hero stats={data.stats} lastUpdated={data.lastUpdated} />
           <Marquee items={heroBadges} />
           <About />
-          <Projects />
+          <Projects projects={data.projects} />
           <Experience />
           <Skills />
           <Education />

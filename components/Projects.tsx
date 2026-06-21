@@ -1,9 +1,14 @@
 import { ProjectCard } from "@/components/ProjectCard";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
-import { projects } from "@/data/portfolio";
+import { projects as authoredProjects, type PortfolioProject } from "@/data/portfolio";
 
-export function Projects() {
+type ProjectsProps = {
+  /** Projects — authored fallback by default; enriched with live data when provided. */
+  projects?: PortfolioProject[];
+};
+
+export function Projects({ projects = authoredProjects }: ProjectsProps) {
   return (
     <section id="projects" className="section-divide scroll-mt-24">
       <div className="container-shell section-pad">

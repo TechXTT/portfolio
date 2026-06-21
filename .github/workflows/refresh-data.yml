@@ -1,0 +1,44 @@
+name: Refresh GitHub data
+
+# Keeps data/github-snapshot.json current so fresh builds and API outages still
+# have recent numbers. ISR already revalidates the live site daily; this just
+# updates the committed fallback and gives a git audit trail.
+
+on:
+  schedule:
+    - cron: "17 5 * * *" # daily at 05:17 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Refresh snapshot
+        env:
+          # Built-in token — raises the API rate limit, no extra secret needed.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run refresh-data
+
+      - name: Commit if changed
+        run: |
+          if [[ -n "$(git status --porcelain data/github-snapshot.json)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add data/github-snapshot.json
+            git commit -m "chore: refresh GitHub data snapshot"
+            git push
+          else
+            echo "No snapshot changes to commit."
+          fi

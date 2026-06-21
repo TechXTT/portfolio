@@ -1,9 +1,25 @@
 import { ArrowDownRight } from "lucide-react";
 import { Reveal } from "@/components/Reveal";
 import { SystemMap } from "@/components/SystemMap";
-import { profile, socialLinks, stats, systemSignals } from "@/data/portfolio";
+import {
+  profile,
+  socialLinks,
+  stats as authoredStats,
+  systemSignals,
+  type Stat,
+} from "@/data/portfolio";
+import { relativeDate } from "@/lib/format";
 
-export function Hero() {
+type HeroProps = {
+  /** Hero stats — authored fallback by default; live values when provided. */
+  stats?: Stat[];
+  /** ISO timestamp of the last GitHub sync, if any. */
+  lastUpdated?: string | null;
+};
+
+export function Hero({ stats = authoredStats, lastUpdated = null }: HeroProps) {
+  const synced = relativeDate(lastUpdated);
+
   return (
     <section id="home" className="container-shell scroll-mt-24 pb-20 pt-14 sm:pt-20">
       <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
@@ -108,6 +124,12 @@ export function Hero() {
             </div>
           ))}
         </div>
+        {synced ? (
+          <p className="mono-label mt-3 flex items-center gap-2 text-faint">
+            <span className="status-dot size-1.5" aria-hidden="true" />
+            Synced from GitHub · {synced}
+          </p>
+        ) : null}
       </Reveal>
     </section>
   );

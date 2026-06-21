@@ -18,6 +18,14 @@ export type ProjectLink = {
   href: string;
 };
 
+/** Volatile, GitHub-sourced metadata. Authored copy always wins over this. */
+export type ProjectLive = {
+  stars?: number;
+  language?: string;
+  lastPushed?: string; // ISO date
+  latestRelease?: string; // e.g. "v1.0.0"
+};
+
 export type PortfolioProject = {
   title: string;
   service: string;
@@ -31,6 +39,10 @@ export type PortfolioProject = {
   signal: string;
   interfaces: string[];
   ships: string[];
+  /** "owner/name" — the repo this project syncs from, if any. */
+  repo?: string;
+  /** Live GitHub metadata, populated at request time by the merge layer. */
+  live?: ProjectLive;
 };
 
 export const profile = {
@@ -47,6 +59,7 @@ export const profile = {
   email: "martin@bozhilov.me",
   github: "https://github.com/TechXTT",
   githubHandle: "github.com/TechXTT",
+  githubUsername: "TechXTT",
   linkedin: "https://www.linkedin.com/in/martin-b-bozhilov",
   linkedinHandle: "linkedin.com/in/martin-b-bozhilov",
 };
@@ -118,10 +131,20 @@ export const socialLinks = [
   },
 ] satisfies Array<{ label: string; href: string; icon: LucideIcon }>;
 
-export const stats = [
-  { value: "46", label: "Public GitHub repositories" },
-  { value: "26", label: "GitHub followers" },
-  { value: "TORM v1", label: "Open-source Go ORM" },
+/**
+ * Hero stats. `value`/`label` are authored fallbacks; `key` lets the merge
+ * layer overwrite the numeric/release value with live GitHub data when present.
+ */
+export type Stat = {
+  value: string;
+  label: string;
+  key?: "repos" | "followers" | "release";
+};
+
+export const stats: Stat[] = [
+  { value: "46", label: "Public GitHub repositories", key: "repos" },
+  { value: "26", label: "GitHub followers", key: "followers" },
+  { value: "TORM v1", label: "Open-source Go ORM", key: "release" },
   { value: "Fontys", label: "ICT student · Eindhoven" },
 ];
 
@@ -178,6 +201,7 @@ export const aboutParagraphs = [
 export const projects = [
   {
     title: "TORM",
+    repo: "TechXTT/TORM",
     service: "torm.orm",
     subtitle: "Schema-driven Go ORM and CLI inspired by Prisma",
     description:
@@ -196,6 +220,7 @@ export const projects = [
   },
   {
     title: "xolto",
+    repo: "TechXTT/xolto",
     service: "xolto.app",
     subtitle: "Go API and worker runtime for a used-electronics buying copilot",
     description:
@@ -216,6 +241,7 @@ export const projects = [
   },
   {
     title: "The Bazaar",
+    repo: "TechXTT/The-Bazaar",
     service: "bazaar.market",
     subtitle: "Diploma-thesis blockchain marketplace platform",
     description:
@@ -236,6 +262,7 @@ export const projects = [
   },
   {
     title: "ELSYS Website",
+    repo: "TechXTT/Elsys",
     service: "elsys.cms",
     subtitle: "Multilingual school website with admin tooling",
     description:
@@ -253,6 +280,7 @@ export const projects = [
   },
   {
     title: "Assist",
+    repo: "TechXTT/Assist",
     service: "assist.app",
     subtitle: "Personal dashboard with AI, Gmail, and open banking integrations",
     description:
@@ -267,6 +295,7 @@ export const projects = [
   },
   {
     title: "Crypto Contract Observer",
+    repo: "TechXTT/contract-observer",
     service: "observer.chain",
     subtitle: "Go event observer for blockchain contract activity",
     description:
