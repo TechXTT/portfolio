@@ -1,6 +1,40 @@
 {
-  "user": { "publicRepos": 0, "followers": 0 },
-  "repos": {},
-  "totalStars": 0,
-  "fetchedAt": ""
+  "user": {
+    "publicRepos": 47,
+    "followers": 26
+  },
+  "repos": {
+    "TechXTT/TORM": {
+      "stars": 1,
+      "language": "Go",
+      "lastPushed": "2025-06-04T19:22:30Z",
+      "latestRelease": "v1.0.0"
+    },
+    "TechXTT/xolto": {
+      "stars": 1,
+      "language": "Go",
+      "lastPushed": "2026-05-11T00:38:06Z"
+    },
+    "TechXTT/The-Bazaar": {
+      "stars": 0,
+      "lastPushed": "2026-06-01T11:32:30Z"
+    },
+    "TechXTT/Elsys": {
+      "stars": 0,
+      "language": "TypeScript",
+      "lastPushed": "2026-06-20T01:26:54Z"
+    },
+    "TechXTT/Assist": {
+      "stars": 0,
+      "language": "TypeScript",
+      "lastPushed": "2026-05-11T17:29:15Z"
+    },
+    "TechXTT/contract-observer": {
+      "stars": 0,
+      "language": "Go",
+      "lastPushed": "2023-07-14T12:48:53Z"
+    }
+  },
+  "totalStars": 2,
+  "fetchedAt": "2026-06-22T10:48:59.846Z"
 }
