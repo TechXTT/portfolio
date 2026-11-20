@@ -7,8 +7,8 @@
     "TechXTT/TORM": {
       "stars": 1,
       "language": "Go",
-      "lastPushed": "2025-06-04T19:22:30Z",
-      "latestRelease": "v1.0.0"
+      "lastPushed": "2026-11-20T10:06:09Z",
+      "latestRelease": "v2.0.0"
     },
     "TechXTT/xolto": {
       "stars": 1,
@@ -36,5 +36,5 @@
     }
   },
   "totalStars": 2,
-  "fetchedAt": "2026-10-11T11:27:11.238Z"
+  "fetchedAt": "2026-11-20T14:07:03.731Z"
 }
